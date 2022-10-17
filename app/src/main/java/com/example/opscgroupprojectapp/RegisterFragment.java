@@ -82,6 +82,9 @@ public class RegisterFragment extends Fragment {
                                                 myRef.child("Users").child(mAuth.getUid()).setValue(user);
                                                 Toast.makeText(getActivity(), "Registration Successful.",
                                                         Toast.LENGTH_SHORT).show();
+                                                FragmentManager fm = getParentFragmentManager();
+                                                fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, WelcomeFragment.class,null).addToBackStack(null).commit();
+
                                             } else {
                                                 // If sign in fails, display a message to the user.
                                                 Toast.makeText(getActivity(), "Authentication failed.",
@@ -89,7 +92,6 @@ public class RegisterFragment extends Fragment {
                                             }
                                         }
                                     });
-
                     }
 
                 });
