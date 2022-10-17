@@ -4,14 +4,22 @@ package com.example.opscgroupprojectapp.Models;
 public class User_Model {
 
     //Declaration of variables ()
-    public String Username;
-    public String Password;
-    public String Email;
+    private String Username;
+    private String Password;
+    private String Email;
 
     // The code below is a constructor that will take two arguments ()
-    public User_Model(String username, String password) {
-        Username = username;
+    public User_Model(String email, String password) {
+        Email = email;
         Password = password;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     // The following are setters and getters for the username and password variables  ()

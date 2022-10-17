@@ -1,10 +1,14 @@
 package com.example.opscgroupprojectapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -26,36 +32,68 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class RegisterFragment extends Fragment {
 
-    EditText username, password, email, cPass;
-    Button regBtn;
+    EditText username, uPassword, uEmail, cPass;
+    Button registerBtn;
     private FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View register = inflater.inflate(R.layout.fragment_register, container, false);
-        mAuth = FirebaseAuth.getInstance();
+
         username = register.findViewById(R.id.etUsername);
-        password = register.findViewById(R.id.etPassword);
-        email = register.findViewById(R.id.etGmail);
+        uPassword = register.findViewById(R.id.etPassword);
+        uEmail = register.findViewById(R.id.etGmail);
         cPass = register.findViewById(R.id.ConfirmPassword);
-        regBtn= register.findViewById(R.id.regBtn);
-
-        
-
-        mAuth.createUserWithEmailAndPassword(email.toString(),password.toString())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        User_Model newUser = new User_Model(email.toString(),password.toString());
-
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(newUser);
-                    }
-                });
+        registerBtn= register.findViewById(R.id.regBtn);
 
         return register;
     }
-}
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+                    public void onClick(View v) {
+                        String name = username.getText().toString();
+                        String email = uEmail.getText().toString();
+                        String password = uPassword.getText().toString();
+                        String cPassword = cPass.getText().toString();
+                        User_Model user;
+
+
+                            user = new User_Model(email, password);
+
+                            mAuth = FirebaseAuth.getInstance();
+                            mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                                    .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+
+                                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                DatabaseReference myRef = database.getReference();
+                                                Toast.makeText(getActivity(), user.getEmail() + " " + user.getPassword(),
+                                                        Toast.LENGTH_SHORT).show();
+                                                myRef.child("Users").child(mAuth.getUid()).setValue(user);
+                                                Toast.makeText(getActivity(), "Registration Successful.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                // If sign in fails, display a message to the user.
+                                                Toast.makeText(getActivity(), "Authentication failed.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                    }
+
+                });
+
+            }
+
+    }
