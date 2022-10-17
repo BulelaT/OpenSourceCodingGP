@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "608231119452",
+    "project_id": "beconpointapp",
+    "storage_bucket": "beconpointapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608231119452:android:626e6cd2241a901d70e499",
+        "android_client_info": {
+          "package_name": "com.example.opscgroupprojectapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608231119452-5dsimhsi9e5lrlbejm2hfdfe1fevg1en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfGrGlhUIZP03tkO_wMbnFXuaSenxVU1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608231119452-5dsimhsi9e5lrlbejm2hfdfe1fevg1en.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
