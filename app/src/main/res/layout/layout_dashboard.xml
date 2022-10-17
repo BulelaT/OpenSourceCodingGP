@@ -21,6 +21,7 @@
                 app:cardCornerRadius="40dp">
 
                 <ImageView
+                    android:id="@+id/flagPic"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:adjustViewBounds="false"
@@ -36,6 +37,7 @@
             android:paddingLeft="20dp">
 
             <Button
+                android:id="@+id/selectedCountryBtn"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:text="Country Name"
