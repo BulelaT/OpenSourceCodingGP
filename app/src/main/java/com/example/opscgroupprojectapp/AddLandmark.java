@@ -19,9 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ import java.io.ByteArrayOutputStream;
 public class AddLandmark extends Fragment {
 
     View landmarkView;
-    ImageView picture;
+    ImageButton picture;
 
 
     // Declaration of variables (The IIE, 2022)
@@ -55,6 +57,7 @@ public class AddLandmark extends Fragment {
     Bitmap imageBMP;
     Uri imgUri;
 
+    private static final String TAG = "AddLandmark";
 
     private DatabaseReference dbRef;
     private FirebaseStorage fbStorage;
@@ -74,7 +77,7 @@ public class AddLandmark extends Fragment {
         storRef = fbStorage.getReference();
 
         //
-        picture = (ImageView) landmarkView.findViewById(R.id.ImageItemPic);
+        picture = (ImageButton) landmarkView.findViewById(R.id.ImageItemPic);
 
 
         return landmarkView;
@@ -113,106 +116,13 @@ public class AddLandmark extends Fragment {
         return true;
     };
 
-    //AR Launcher (The IIE, 2022)
-    ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            Bundle imgBundle = result.getData().getExtras();
-            if (imgBundle != null){
-                imageBMP = (Bitmap) imgBundle.get("data");
-                picture.setImageBitmap(imageBMP);
-
-                //gets timestamp at image creation, for use as image ID in database (Android Developers, 2022)
-                Long timestamp = System.currentTimeMillis()/1000;
-                String imgID = "IMG" + timestamp.toString();
-
-                ByteArrayOutputStream boas = new ByteArrayOutputStream();
-                imageBMP.compress(Bitmap.CompressFormat.JPEG, 100, boas);
-                byte[] imgData = boas.toByteArray();
-                String imgPath = MediaStore.Images.Media.insertImage(getContentResolver(), imageBMP, imgID, null);
-                imgUri = Uri.parse(imgPath);
-
-                uploadImg(imgID);
-            }
-        }
-    });
-
-    private void uploadImg(String imgid) {
-        StorageReference imgRef = storRef.child("images/" + imgid);
-
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading image");
-        pd.show();
-
-        imgRef.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+    private void init () {
+        picture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                landmarkView = Toast.makeText(AddLandmark.this, "Image uploaded", Toast.LENGTH_SHORT).show();
-                pd.dismiss();
-                imgRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        imgUri = uri;
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddLandmark.this, "Image upload failed", Toast.LENGTH_LONG).show();
-                pd.dismiss();
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progress = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                pd.setMessage("Percentage: " + (int) progress + "%");
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: Opening Dialog to Choose New Photo");
             }
         });
-    }
-
-    public void onClick(View view) {
-        if (view.getId()==R.id.ImageItemPic) {
-            //checkPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
-            checkPermissions(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
-        }else{
-        }
-    }
-
-    // The code below checks for permission before the user can choose an image (The IIE, 2022)
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(Add_Item_Page.this, "Camera permisison granted", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(Add_Item_Page.this, "Camera permission denied", Toast.LENGTH_SHORT).show();
-            }
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(Add_Item_Page.this, "Storage permission granted", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(Add_Item_Page.this, "Storage permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    // The code below checks for permission before the user can choose an image (The IIE, 2022)
-    public void checkPermissions(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Add_Item_Page.this, new String[]{permission}, requestCode);
-        } else {
-            Toast.makeText(Add_Item_Page.this, "Permission already granted", Toast.LENGTH_SHORT).show();
-            ImageHandler();
-        }
-    }
-
-    // The code below ensures a user can add an image (The IIE, 2022)
-    public void ImageHandler(){
-        Toast.makeText(Add_Item_Page.this, "Camera permission granted", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        resultLauncher.launch(i);
     }
 
 
