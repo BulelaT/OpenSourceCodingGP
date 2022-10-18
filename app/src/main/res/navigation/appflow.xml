@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appflow"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.opscgroupprojectapp.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_registerFragment2"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.opscgroupprojectapp.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.opscgroupprojectapp.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_dashboard"
+            app:destination="@id/dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboard"
+        android:name="com.example.opscgroupprojectapp.Dashboard"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboard_to_cityPageFragment"
+            app:destination="@id/cityPageFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_settingsPage"
+            app:destination="@id/settingsPage" />
+        <action
+            android:id="@+id/action_dashboard_to_addLandmark"
+            app:destination="@id/addLandmark" />
+    </fragment>
+    <fragment
+        android:id="@+id/cityPageFragment"
+        android:name="com.example.opscgroupprojectapp.CityPageFragment"
+        android:label="fragment_city_page"
+        tools:layout="@layout/fragment_city_page" >
+        <action
+            android:id="@+id/action_cityPageFragment_to_selectTour"
+            app:destination="@id/selectTour" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectTour"
+        android:name="com.example.opscgroupprojectapp.SelectTour"
+        android:label="fragment_select_tour"
+        tools:layout="@layout/fragment_select_tour" >
+        <action
+            android:id="@+id/action_selectTour_to_tourInformation"
+            app:destination="@id/tourInformation" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourInformation"
+        android:name="com.example.opscgroupprojectapp.TourInformation"
+        android:label="fragment_tour_information"
+        tools:layout="@layout/fragment_tour_information" />
+    <fragment
+        android:id="@+id/settingsPage"
+        android:name="com.example.opscgroupprojectapp.SettingsPage"
+        android:label="fragment_settings_page"
+        tools:layout="@layout/fragment_settings_page" />
+    <fragment
+        android:id="@+id/addLandmark"
+        android:name="com.example.opscgroupprojectapp.AddLandmark"
+        android:label="fragment_add_landmark"
+        tools:layout="@layout/fragment_add_landmark" />
+</navigation>
