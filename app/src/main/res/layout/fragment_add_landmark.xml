@@ -117,32 +117,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.707" />
 
-    <View
-        android:layout_width="60dp"
-        android:layout_height="50dp"
-        android:background="@drawable/add_landmarktextbox"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787">
-
-    </View>
-
-    <ImageButton
-        android:id="@+id/ImageItemPic"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/add_landmark_icon"
-        android:contentDescription="image"
-        android:paddingTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787" />
 
     <Button
         android:layout_width="wrap_content"
@@ -160,48 +134,28 @@
         app:layout_constraintVertical_bias="0.907">
     </Button>
 
-    <!-- <Button
-         android:id="@+id/AddLandmarkButton"
-         android:layout_width="wrap_content"
-         android:layout_height="48dp"
-         android:background="#4D4F2C"
-         android:elevation="20dp"
-         android:text="CONFIRM"
-         android:textColor="#FFFFFF"
-         android:textSize="20dp"
-         android:textStyle="bold"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintHorizontal_bias="0.497"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintVertical_bias="0.945" />-->
+    <Button
+        android:id="@+id/imagePicIB"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/round_button_landmarkpage"
 
-    <LinearLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addlandmark_image_label" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#4D4F2C"
+        app:itemTextColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_view" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/bottom_navigation"
-                android:layout_marginBottom="0dp" />
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:background="#4D4F2C"
-                app:itemTextColor="@android:color/white"
-                app:menu="@menu/bottom_navigation_view" />
-        </RelativeLayout>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

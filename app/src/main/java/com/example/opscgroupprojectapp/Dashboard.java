@@ -1,17 +1,26 @@
 package com.example.opscgroupprojectapp;
 
+import static android.content.Context.LOCATION_SERVICE;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +34,12 @@ import com.example.opscgroupprojectapp.Adapters.InterfaceRV;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
@@ -35,6 +50,9 @@ public class Dashboard extends Fragment implements InterfaceRV {
     public static Double lat = 0.0, lng = 0.0;
     public static Boolean isGpsEnabled = false;
     public GoogleMap mMap;
+    LocationManager locationManager;
+
+
     @SuppressLint("MissingPermission")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +61,8 @@ public class Dashboard extends Fragment implements InterfaceRV {
         dashboard = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         RecyclerView countryRV = dashboard.findViewById(R.id.dashboardRecyclerView);
+
+
 
         countryRV.setHasFixedSize(true);
 
@@ -54,10 +74,22 @@ public class Dashboard extends Fragment implements InterfaceRV {
 
         //Retrieving navigation option texts
         String[] allCountries = getResources().getStringArray(R.array.Countries);
+        List<String> allCountriesList = new ArrayList<String>(Arrays.asList(allCountries));
+        Random rand = new Random();
+        for (int i = 0; i < 5; i++)
+        {
+            allCountriesList.remove(rand.nextInt(allCountriesList.size()-1));
+        }
+
+        allCountriesList.add(MainActivity.currCountryName);
+        Log.d("underpants", "onCreateView: " + MainActivity.currCountryName);
+        allCountries = allCountriesList.toArray(new String[allCountriesList.size()]);
+
         //Setting up adapters
         //Destination Options RecyclerView
         RecyclerView.Adapter<CountryListAdapter.OptionViewHolder> countryAdp = new CountryListAdapter(getParentFragmentManager(), this , requireContext(),allCountries);//(Professor Sluiter, 2020).
         countryRV.setAdapter(countryAdp);
+
 
         BottomNavigationView bottomNav = dashboard.findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -69,6 +101,8 @@ public class Dashboard extends Fragment implements InterfaceRV {
 
         return dashboard;
     }
+
+
 
     @Override
     public void onItemClick(int position)
@@ -85,7 +119,6 @@ public class Dashboard extends Fragment implements InterfaceRV {
         if (itemId == R.id.Dashboard_Nav) {
             FragmentManager fm = getParentFragmentManager();
             fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, Dashboard.class,null).addToBackStack(null).commit();
-
         }
         else if (itemId == R.id.Landmark_Nav) {
             FragmentManager fm = getParentFragmentManager();
@@ -106,4 +139,6 @@ public class Dashboard extends Fragment implements InterfaceRV {
 
         return true;
     };
+
+
 }

@@ -1,18 +1,35 @@
 package com.example.opscgroupprojectapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.opscgroupprojectapp.Adapters.InterfaceRV;
 
+import java.util.List;
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity implements LocationListener {
+
+    LocationManager locationManager;
+    public static String currCountryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +41,86 @@ public class MainActivity extends AppCompatActivity {
             //Link: https://developers.google.com/maps/documentation/places/android-sdk/current-place-tutorial
             //Author: Google Developers
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            getLocation();
 
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().setReorderingAllowed(true).add(R.id.WelcomeFrag, WelcomeFragment.class,null).commitNow();
+
 
             return;
         }
 
 
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(MainActivity.this,new String[] {
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            }, 100);
+
+            try{
+                locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5,MainActivity.this);
+                Toast.makeText(MainActivity.this, "Something works", Toast.LENGTH_LONG).show();
+
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        Toast.makeText(this, "Latitude: "+location.getLatitude() +" Longitude: "+ location.getLongitude(), Toast.LENGTH_SHORT).show();
+
+        try{
+            Geocoder currentCountry = new Geocoder(MainActivity.this, Locale.getDefault());
+            List<Address> addresses = currentCountry.getFromLocation(location.getLatitude(), location.getLongitude(),1);
+            String address = addresses.get(0).getCountryName();
+            currCountryName = address;
+            Log.d("underpants", "onLocationChange: " + currCountryName);
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull List<Location> locations) {
+        LocationListener.super.onLocationChanged(locations);
+    }
+
+    @Override
+    public void onFlushComplete(int requestCode) {
+        LocationListener.super.onFlushComplete(requestCode);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        LocationListener.super.onStatusChanged(provider, status, extras);
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        LocationListener.super.onProviderEnabled(provider);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        LocationListener.super.onProviderDisabled(provider);
     }
 
 
