@@ -23,6 +23,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
  * create an instance of this fragment.
  */
+
+//(Zapata, 2016)
 public class AddLandmark extends Fragment {
     View landmarkView;
     Button imageButton;
@@ -35,10 +37,6 @@ public class AddLandmark extends Fragment {
         BottomNavigationView bottomNav = landmarkView.findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         imageButton = landmarkView.findViewById(R.id.imagePicIB);
-
-
-
-
 
         return landmarkView;
     }

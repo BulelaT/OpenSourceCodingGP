@@ -38,6 +38,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
+    //(Gerber and Craig, 2015)
     LocationManager locationManager;
 
     public static String currCountryName;

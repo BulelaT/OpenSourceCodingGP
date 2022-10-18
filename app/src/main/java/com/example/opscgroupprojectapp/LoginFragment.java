@@ -32,6 +32,7 @@ import android.location.LocationManager;
  */
 public class LoginFragment extends Fragment{
 
+    //(Hagos, 2019)
     View login;
     EditText uEmail, uPassword;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
