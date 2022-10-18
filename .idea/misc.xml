@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/OpenSourceCodingGP/app/src/main/res/drawable/round_button.xml" value="0.184" />
+        <entry key="..\:/OpenSourceCodingGP/app/src/main/res/drawable/round_button_landmarkpage.xml" value="0.1475" />
         <entry key="..\:/OpenSourceCodingGP/app/src/main/res/layout/activity_main.xml" value="0.14583333333333334" />
         <entry key="..\:/OpenSourceCodingGP/app/src/main/res/layout/activity_maps.xml" value="0.25" />
         <entry key="..\:/OpenSourceCodingGP/app/src/main/res/layout/fragment_add_landmark.xml" value="0.25" />
