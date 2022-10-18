@@ -237,6 +237,7 @@
             android:layout_gravity="bottom"
             android:background="#4D4F2C"
             app:itemTextColor="@android:color/white"
-            app:menu="@menu/bottom_navigation_view" />
+            app:menu="@menu/bottom_navigation_view"
+            app:itemIconSize="30dp"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

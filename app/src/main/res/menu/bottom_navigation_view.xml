@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/Dashboard_Nav"
-        android:icon="@drawable/dashboard"
+        android:icon="@android:drawable/ic_dialog_dialer"
         android:title="Dashboard" />
 
     <item
         android:id="@+id/Landmark_Nav"
-        android:icon="@drawable/landmark"
+        android:icon="@android:drawable/ic_dialog_map"
         android:title="Landmarks" />
 
     <item
         android:id="@+id/Camera_Nav"
-        android:icon="@drawable/camera"
+        android:icon="@android:drawable/ic_menu_camera"
         android:title="Camera" />
 
     <item
         android:id="@+id/Settings_Nav"
-        android:icon="@drawable/settings"
+        android:icon="@android:drawable/ic_menu_save"
         android:title="Settings" />
 
     <item
         android:id="@+id/SignOut_Nav"
-        android:icon="@drawable/sign_out"
+        android:icon="@android:drawable/presence_offline"
         android:title="Sign Out" />
 
 </menu>
