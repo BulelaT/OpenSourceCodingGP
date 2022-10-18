@@ -55,6 +55,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
+        mapFragment.getMapAsync(this);
+
         //Get users current location Code
         //https://www.youtube.com/watch?v=p0PoKEPI65o
         //====================================================================================
