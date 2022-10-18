@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +17,7 @@ import androidx.fragment.app.Fragment;
  */
 public class DisplayLandFragment extends Fragment {
 
+    View landdisfrag;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -58,6 +62,44 @@ public class DisplayLandFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_display_land, container, false);
+        landdisfrag = inflater.inflate(R.layout.fragment_display_land, container, false);
+
+        BottomNavigationView bottomNav = landdisfrag.findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        return landdisfrag;
     }
+
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+        // By using switch we can easily get
+        // the selected fragment
+        // by using there id.
+        Fragment selectedFragment = null;
+        int itemId = item.getItemId();
+        if (itemId == R.id.Dashboard_Nav) {
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, Dashboard.class,null).addToBackStack(null).commit();
+
+        }
+        else if (itemId == R.id.Landmark_Nav) {
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, DisplayLandFragment.class,null).addToBackStack(null).commit();
+
+        }
+        else if (itemId == R.id.Camera_Nav) {
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, AddLandmark.class,null).addToBackStack(null).commit();
+        }
+        else if (itemId == R.id.Settings_Nav) {
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, SettingsPage.class,null).addToBackStack(null).commit();
+        }
+        else if (itemId == R.id.SignOut_Nav) {
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, WelcomeFragment.class,null).addToBackStack(null).commit();
+        }
+
+
+        return true;
+    };
 }
