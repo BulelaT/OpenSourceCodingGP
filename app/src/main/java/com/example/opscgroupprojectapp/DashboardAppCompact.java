@@ -16,16 +16,16 @@ public class DashboardAppCompact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         // as soon as the application opens the first
         // fragment should be shown to the user
         // in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SelectTour()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SelectTour()).commit();*/
     }
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+    /*private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
         // By using switch we can easily get
         // the selected fragment
         // by using there id.
@@ -50,9 +50,9 @@ public class DashboardAppCompact extends AppCompatActivity {
 
         // It will help to replace the
         // one fragment to other.
-        if (selectedFragment != null) {
+        /*if (selectedFragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
         }
         return true;
-    };
+    };*/
 }
