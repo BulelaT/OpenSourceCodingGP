@@ -121,6 +121,8 @@ public class AddLandmark extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Opening Dialog to Choose New Photo");
+                SelectPhotoDialog dialog = new SelectPhotoDialog();
+                dialog.show(getFragmentManager(), getString(R.string.dialog_select_photo));
             }
         });
     }
