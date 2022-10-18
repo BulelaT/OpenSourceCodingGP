@@ -24,15 +24,26 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.opscgroupprojectapp.Adapters.InterfaceRV;
+import com.google.android.gms.common.api.ApiException;
+import com.google.maps.GeoApiContext;
+import com.google.maps.PlacesApi;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.PlaceType;
+import com.google.maps.model.PlacesSearchResponse;
+import com.google.maps.model.RankBy;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     LocationManager locationManager;
+
     public static String currCountryName;
     public static boolean isLocationOn;
+    public static double lati;
+    public static double longi;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -51,16 +62,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().setReorderingAllowed(true).add(R.id.WelcomeFrag, WelcomeFragment.class,null).commitNow();
 
-
         }
-
-
-
     }
 
     @SuppressLint("MissingPermission")
     private void getLocation() {
-            Toast.makeText(MainActivity.this, "Get location starts up", Toast.LENGTH_LONG).show();
             Log.d("Underpants", "permissions works");
             try{
                 locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
@@ -71,18 +77,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "in Else statement", Toast.LENGTH_LONG).show();
+
                     Log.d("Underpants", "else statement");
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, new LocationListener() {
                         @Override
                         public void onLocationChanged(@NonNull Location location) {
-                            Toast.makeText(getApplicationContext(), "Latitude: "+location.getLatitude() +" Longitude: "+ location.getLongitude(), Toast.LENGTH_LONG).show();
-                            Toast.makeText(MainActivity.this, "in onLocationChanged method", Toast.LENGTH_LONG).show();
+
                             try{
                                 Geocoder currentCountry = new Geocoder(MainActivity.this, Locale.getDefault());
                                 List<Address> addresses = currentCountry.getFromLocation(location.getLatitude(), location.getLongitude(),1);
                                 String address = addresses.get(0).getCountryName();
                                 currCountryName = address;
+                                MainActivity.lati = location.getLatitude();
+                                MainActivity.longi = location.getLongitude();
                                 Log.d("underpants", "onLocationChange: " + currCountryName);
 
                             }catch(Exception e)
@@ -109,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
                 }
-
-                Toast.makeText(MainActivity.this, "Something works", Toast.LENGTH_LONG).show();
 
             }catch(Exception e)
             {
@@ -165,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 Toast.makeText(this, "Permission Not Granted", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 
 }

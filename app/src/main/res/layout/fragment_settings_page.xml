@@ -130,11 +130,13 @@
                                 android:textColor="#9DA15C"/>
 
                             <RadioGroup
+                                android:id="@+id/rgMeasurement"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
                                 <RadioButton
+                                    android:id="@+id/metricRB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Metric"
@@ -142,6 +144,7 @@
                                     android:paddingRight="10dp"/>
 
                                 <RadioButton
+                                    android:id="@+id/imperialRB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Imperial"
@@ -166,28 +169,32 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                                 <RadioGroup
+                                    android:id="@+id/rgLandmark"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
 
                                     <RadioButton
+                                        android:id="@+id/storeRB"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Historical"
+                                        android:text="Supermarket"
                                         android:textColor="#9DA15C"
                                         android:paddingRight="10dp"/>
 
                                     <RadioButton
+                                        android:id="@+id/barRB"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Modern"
+                                        android:text="Bar"
                                         android:textColor="#9DA15C"
                                         android:paddingRight="10dp"/>
 
                                     <RadioButton
+                                        android:id="@+id/airportRB"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Popular"
+                                        android:text="Airport"
                                         android:textColor="#9DA15C"/>
                                 </RadioGroup>
                             </LinearLayout>
@@ -204,6 +211,7 @@
             android:paddingTop="20dp">
 
             <Button
+                android:id="@+id/settingsConfirm"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="CONFIRM"
@@ -212,14 +220,6 @@
                 />
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <FrameLayout
                 android:id="@+id/fragment_container"
@@ -237,7 +237,7 @@
                 android:background="#4D4F2C"
                 app:itemTextColor="@android:color/white"
                 app:menu="@menu/bottom_navigation_view" />
-        </RelativeLayout>
-    </LinearLayout>
+
+
 
 </FrameLayout>

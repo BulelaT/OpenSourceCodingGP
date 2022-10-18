@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.opscgroupprojectapp.CityPageFragment;
 import com.example.opscgroupprojectapp.Dashboard;
 import com.example.opscgroupprojectapp.R;
-
+//(Hagos, 2018)
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.OptionViewHolder>{
     private final InterfaceRV interfaceRV;//(Practical Coding, 2021)
     final LayoutInflater inflater;

@@ -24,6 +24,6 @@
     <item
         android:id="@+id/SignOut_Nav"
         android:icon="@drawable/sign_out"
-        android:title="Sign Out" />
+        android:title="Map" />
 
 </menu>

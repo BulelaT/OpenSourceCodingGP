@@ -1,10 +1,12 @@
 package com.example.opscgroupprojectapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -57,6 +59,7 @@ public class RegisterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
                     public void onClick(View v) {
                         String name = username.getText().toString();
@@ -66,7 +69,7 @@ public class RegisterFragment extends Fragment {
                         User_Model user;
 
 
-                            user = new User_Model(email, password);
+                            user = new User_Model(email,password);
 
                             mAuth = FirebaseAuth.getInstance();
                             mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
@@ -74,17 +77,14 @@ public class RegisterFragment extends Fragment {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()) {
-
+                                                user.setPassword(User_Model.hidePasswordWithAsterix(user.getPassword()));
                                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                                 DatabaseReference myRef = database.getReference();
-                                                Toast.makeText(getActivity(), user.getEmail() + " " + user.getPassword(),
-                                                        Toast.LENGTH_SHORT).show();
                                                 myRef.child("Users").child(mAuth.getUid()).setValue(user);
                                                 Toast.makeText(getActivity(), "Registration Successful.",
                                                         Toast.LENGTH_SHORT).show();
                                                 FragmentManager fm = getParentFragmentManager();
                                                 fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, WelcomeFragment.class,null).addToBackStack(null).commit();
-
                                             } else {
                                                 // If sign in fails, display a message to the user.
                                                 Toast.makeText(getActivity(), "Authentication failed.",

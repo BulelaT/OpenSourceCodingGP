@@ -21,6 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OPSCGROUPprojectapp"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCLsSnRSj3Wp4ODEHNh-frX__F__ZSpmYw" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -30,6 +34,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
     </application>
 
 </manifest>

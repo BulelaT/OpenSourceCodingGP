@@ -46,6 +46,7 @@ import java.util.Random;
  */
 public class Dashboard extends Fragment implements InterfaceRV {
 
+    //(Ross, Zhang, Fogarty and Wobbrock, 2018)
     View dashboard;
     public static Double lat = 0.0, lng = 0.0;
     public static Boolean isGpsEnabled = false;
@@ -74,14 +75,25 @@ public class Dashboard extends Fragment implements InterfaceRV {
 
         //Retrieving navigation option texts
         String[] allCountries = getResources().getStringArray(R.array.Countries);
-        List<String> allCountriesList = new ArrayList<String>(Arrays.asList(allCountries));
+        List<String> allCountriesList = new ArrayList<String>();
         Random rand = new Random();
-        for (int i = 0; i < 5; i++)
+
+        allCountriesList.addAll(Arrays.asList(allCountries));
+
+        try {
+            allCountriesList.remove(allCountriesList.indexOf(MainActivity.currCountryName));
+        }catch(Exception e)
         {
-            allCountriesList.remove(rand.nextInt(allCountriesList.size()-1));
+            e.printStackTrace();
         }
 
-        allCountriesList.add(MainActivity.currCountryName);
+        allCountriesList.add(0,MainActivity.currCountryName);
+        for (int i = 0; i < 5; i++)
+        {
+            allCountriesList.remove(1+rand.nextInt(allCountriesList.size()-2));
+        }
+
+
         Log.d("underpants", "onCreateView: " + MainActivity.currCountryName);
         allCountries = allCountriesList.toArray(new String[allCountriesList.size()]);
 
@@ -132,9 +144,11 @@ public class Dashboard extends Fragment implements InterfaceRV {
             FragmentManager fm = getParentFragmentManager();
             fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, SettingsPage.class,null).addToBackStack(null).commit();
         }
-/*        else if (itemId == R.id.SignOut_Nav) {
-            selectedFragment = new MainActivity();
-        }*/
+        else if (itemId == R.id.SignOut_Nav) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), MapsActivity.class);
+
+            startActivity(intent);
+        }
 
 
         return true;
