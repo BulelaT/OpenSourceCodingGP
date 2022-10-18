@@ -1,6 +1,7 @@
 package com.example.opscgroupprojectapp;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,16 +40,16 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
+
 /**
  * A simple {@link Fragment} subclass.
 
  * create an instance of this fragment.
  */
-public class AddLandmark extends Fragment {
+public class AddLandmark extends Fragment implements SelectPhotoDialog.OnPhotoSelectedListener{
 
     View landmarkView;
     ImageButton picture;
-
 
     // Declaration of variables (The IIE, 2022)
     private final int STORAGE_PERMISSION_CODE = 100;
@@ -117,15 +118,23 @@ public class AddLandmark extends Fragment {
     };
 
     private void init () {
-        picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: Opening Dialog to Choose New Photo");
-                SelectPhotoDialog dialog = new SelectPhotoDialog();
-                dialog.show(getFragmentManager(), getString(R.string.dialog_select_photo));
-            }
-        });
+       picture.setOnClickListener((v) -> {
+           Log.d(TAG, "onClick: Opening dialog to choose in photo");
+           SelectPhotoDialog dialog = new SelectPhotoDialog();
+           dialog.show(getFragmentManager(), getString(R.string.dialog_select_photo));
+           dialog.setTargetFragment(AddLandmark.this, 1);
+       });
     }
 
 
+    @Override
+    public void getImagePath(Uri imagePath) {
+        Log.d(TAG, "getImagePath: Setting the new image");
+
+    }
+
+    @Override
+    public void getImageBitMap(Bitmap bitmap) {
+
+    }
 }

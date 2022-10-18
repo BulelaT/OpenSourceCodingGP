@@ -20,10 +20,11 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import java.net.URI;
 
-public class SelectPhotoDialog extends AddLandmark{
+public class SelectPhotoDialog extends DialogFragment {
 
     private static final String TAG = "SelectPhotoDialog";
     private static final int PICKFILE_REQUEST_CODE = 1234;
@@ -70,6 +71,7 @@ public class SelectPhotoDialog extends AddLandmark{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         //result when selecting a new result from memory
         if(requestCode == PICKFILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri selectedImageUri = data.getData();
@@ -77,7 +79,7 @@ public class SelectPhotoDialog extends AddLandmark{
 
             //send the uri to addlandmark fragment
             mOnPhotoSelectedListener.getImagePath(selectedImageUri);
-
+            getDialog().dismiss();
         }
 
         //result when taking a new photo with camera
@@ -90,11 +92,13 @@ public class SelectPhotoDialog extends AddLandmark{
         }
     }
 
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         try
         {
-            mOnPhotoSelectedListener = (OnPhotoSelectedListener) getActivity();
+            mOnPhotoSelectedListener = (OnPhotoSelectedListener) getTargetFragment();
         }
         catch (ClassCastException e)
         {
