@@ -89,19 +89,21 @@ public class Dashboard extends Fragment implements InterfaceRV {
         }
         else if (itemId == R.id.Landmark_Nav) {
             FragmentManager fm = getParentFragmentManager();
-            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, AddLandmark.class,null).addToBackStack(null).commit();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, DisplayLandFragment.class,null).addToBackStack(null).commit();
 
         }
         else if (itemId == R.id.Camera_Nav) {
-            selectedFragment = new AddLandmark();
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, AddLandmark.class,null).addToBackStack(null).commit();
         }
         else if (itemId == R.id.Settings_Nav) {
             FragmentManager fm = getParentFragmentManager();
             fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, SettingsPage.class,null).addToBackStack(null).commit();
         }
-/*        else if (itemId == R.id.SignOut_Nav) {
-            selectedFragment = new MainActivity();
-        }*/
+        else if (itemId == R.id.SignOut_Nav) {
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, WelcomeFragment.class,null).addToBackStack(null).commit();
+        }
 
 
         return true;
