@@ -3,6 +3,7 @@ package com.example.opscgroupprojectapp;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -101,12 +102,14 @@ public class CameraFragment extends Fragment {
     {
         if(ContextCompat.checkSelfPermission(requireContext(), perm) != PackageManager.PERMISSION_GRANTED)
         {
-            //ActivityCompat.requestPermissions(getContext(), new String[]{perm}, permCode);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{perm}, permCode);
+
         }
         else
         {
             captureImage();
         }
+
     }
 
     @Override
@@ -126,7 +129,7 @@ public class CameraFragment extends Fragment {
             }
         }
     }
-    @Override
+    /*@Override
     public void onActivityResult(int requestcode, int resultcode, Intent data)
     {
         if(requestcode == getCheckPermissionCodeCamera){
@@ -141,6 +144,19 @@ public class CameraFragment extends Fragment {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
                 takenPic.setImageBitmap(bitmap);
 
+            }
+        }
+    }*/
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == getCheckPermissionCodeCamera) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bitmap bp = (Bitmap) data.getExtras().get("data");
+                takenPic.setImageBitmap(bp);
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
             }
         }
     }
