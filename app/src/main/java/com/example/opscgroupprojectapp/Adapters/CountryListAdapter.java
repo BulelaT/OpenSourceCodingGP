@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.opscgroupprojectapp.CityPageFragment;
-import com.example.opscgroupprojectapp.Dashboard;
 import com.example.opscgroupprojectapp.R;
 //(Hagos, 2018)
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.OptionViewHolder>{

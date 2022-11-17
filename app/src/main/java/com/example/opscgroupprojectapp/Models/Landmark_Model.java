@@ -6,20 +6,24 @@ import android.graphics.Bitmap;
 public class Landmark_Model {
 
     // Declaration of variables ()
-    public Bitmap LandmarkPicture;
-    public String LandmarkName;
-    public String LandmarkType;
-    public String LandmarkLocation;
+    private String LandmarkPicture;
+    private String LandmarkName;
+    private String LandmarkType;
+    private String LandmarkLocation;
 
+    public Landmark_Model()
+    {
+
+    }
     // The code below is a constructor that will take four arguments ()
-    public Landmark_Model(Bitmap landmarkPicture, String landmarkName, String landmarkType, String landmarkLocation) {
+    public Landmark_Model(String landmarkPicture, String landmarkName, String landmarkType, String landmarkLocation) {
         LandmarkPicture = landmarkPicture;
         LandmarkName = landmarkName;
         LandmarkType = landmarkType;
         LandmarkLocation = landmarkLocation;
     }
 
-    public Landmark_Model(Bitmap landmarkPicture, String landmarkName, String landmarkLocation) {
+    public Landmark_Model(String landmarkPicture, String landmarkName, String landmarkLocation) {
         LandmarkPicture = landmarkPicture;
         LandmarkName = landmarkName;
         LandmarkLocation = landmarkLocation;
@@ -27,12 +31,12 @@ public class Landmark_Model {
 
     // The following are setters and getters ()
     // get landmark picture method ()
-    public Bitmap getLandmarkPicture() {
+    public String getLandmarkPicture() {
         return LandmarkPicture;
     }
 
     // set landmark picture method ()
-    public void setLandmarkPicture(Bitmap landmarkPicture) {
+    public void setLandmarkPicture(String landmarkPicture) {
         LandmarkPicture = landmarkPicture;
     }
 

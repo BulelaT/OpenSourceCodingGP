@@ -53,12 +53,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setContentView(R.layout.activity_main);
 
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED))
+                && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                && (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED))
         {
             //This programming statement was adapted from Google Maps Platform:
             //Link: https://developers.google.com/maps/documentation/places/android-sdk/current-place-tutorial
             //Author: Google Developers
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA}, 101);
+            //requestPermissions(new String[]{Manifest.permission.CAMERA}, 102);
 
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().setReorderingAllowed(true).add(R.id.WelcomeFrag, WelcomeFragment.class,null).commitNow();
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         switch (requestCode){
             case 101 :
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permissions Granted", Toast.LENGTH_SHORT).show();
                     getLocation();
                 }
                 break;
