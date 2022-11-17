@@ -58,7 +58,6 @@ public class LoginFragment extends Fragment{
                             FirebaseUser fbu = mAuth.getCurrentUser();
                             FragmentManager fm = getParentFragmentManager();
                             fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, Dashboard.class,null).addToBackStack(null).commit();
-
                         }
                     }
                 });

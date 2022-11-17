@@ -8,140 +8,40 @@
     android:background="@drawable/add_landmark_background"
     tools:context="com.example.opscgroupprojectapp.AddLandmark">
 
-    <ImageView
-        android:id="@+id/TourImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/landmark_image" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/landmark_label"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:padding="10dp"
-        android:text="ADD LANDMARKS"
-        android:textAlignment="center"
-        android:textColor="#9DA15C"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.983"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283" />
+        <ImageView
+            android:id="@+id/TourImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="90dp"
+            app:srcCompat="@drawable/landmark_image" />
 
-    <TextView
-        android:id="@+id/addlandmark_name_label"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="Name"
-        android:textColor="#9DA15C"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438" />
+        <TextView
+            android:id="@+id/landmark_label"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="FAVOURITE LANDMARKS"
+            android:textAlignment="center"
+            android:textColor="#9DA15C"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/addlandmark_name_textbox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/add_landmarktextbox"
-        android:ems="20"
-        android:textColor="@color/white"
-        android:inputType="textPersonName"
-        android:paddingTop="5dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/addlandmark_location_label"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="Location"
-        android:textColor="#9DA15C"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-    <EditText
-        android:id="@+id/addlandmark_location_textbox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/add_landmarktextbox"
-        android:ems="20"
-        android:inputType="textPersonName"
-        android:paddingTop="5dp"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
-
-    <TextView
-        android:id="@+id/addlandmark_image_label"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="Image"
-        android:textColor="#9DA15C"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.707" />
+    </LinearLayout>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_button_landmarkpage"
-        android:text="Confirm"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:layout_marginTop="-200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.907">
-    </Button>
 
-    <Button
-        android:id="@+id/imagePicIB"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/round_button_landmarkpage"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addlandmark_image_label" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

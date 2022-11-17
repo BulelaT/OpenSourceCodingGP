@@ -19,6 +19,12 @@ public class Landmark_Model {
         LandmarkLocation = landmarkLocation;
     }
 
+    public Landmark_Model(Bitmap landmarkPicture, String landmarkName, String landmarkLocation) {
+        LandmarkPicture = landmarkPicture;
+        LandmarkName = landmarkName;
+        LandmarkLocation = landmarkLocation;
+    }
+
     // The following are setters and getters ()
     // get landmark picture method ()
     public Bitmap getLandmarkPicture() {

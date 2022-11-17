@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/add_landmark_background"
+    tools:context=".CameraFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="90dp">
+
+        <ImageView
+            android:id="@+id/landmarkImageIV"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/landmark_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/addlandmark_name_label"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Name"
+                android:textColor="#9DA15C"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/addlandmark_name_textbox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_landmarktextbox"
+                android:ems="20"
+                android:textColor="@color/white"
+                android:inputType="textPersonName"
+                android:paddingTop="5dp"
+                android:textSize="20sp"
+                android:layout_marginTop="2dp"
+                android:hint="Landmark Name"
+                app:layout_constraintVertical_bias="0.499" />
+
+            <fragment
+                android:id="@+id/landmarkLocationFrag"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_landmarktextbox"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#4D4F2C"
+        app:itemTextColor="@android:color/white"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_navigation_view" />
+
+</FrameLayout>

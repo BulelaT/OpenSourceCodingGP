@@ -138,7 +138,8 @@ public class Dashboard extends Fragment implements InterfaceRV {
 
         }
         else if (itemId == R.id.Camera_Nav) {
-            selectedFragment = new AddLandmark();
+            FragmentManager fm = getParentFragmentManager();
+            fm.beginTransaction().setReorderingAllowed(true).replace(R.id.WelcomeFrag, CameraFragment.class,null).addToBackStack(null).commit();
         }
         else if (itemId == R.id.Settings_Nav) {
             FragmentManager fm = getParentFragmentManager();
