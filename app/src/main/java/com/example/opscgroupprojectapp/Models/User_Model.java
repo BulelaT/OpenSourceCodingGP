@@ -29,7 +29,7 @@ public class User_Model {
         Email = email;
         Password = password;
         Password = User_Model.encryptPassword(Password);
-        measurementUnit = Unit.METRIC;
+        measurementUnit = Unit.IMPERIAL;
         preferedLandmark = PlaceType.GROCERY_OR_SUPERMARKET;
     }
 

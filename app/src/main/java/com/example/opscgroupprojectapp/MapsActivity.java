@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.opscgroupprojectapp.Models.User_Model;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,6 +34,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
@@ -46,6 +53,7 @@ import com.google.maps.model.PlaceType;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.model.RankBy;
+import com.google.maps.model.Unit;
 
 import org.json.JSONObject;
 
@@ -71,6 +79,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     SupportMapFragment mapFragment;
     FusedLocationProviderClient client;
     private String TAG;
+    FirebaseAuth mAuth;
+    DatabaseReference dbr;
+    User_Model um;
 
     //(Mehta, Kanani and Lande, 2019)
     @Override
@@ -78,6 +89,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        mAuth = FirebaseAuth.getInstance();
+        dbr = FirebaseDatabase.getInstance().getReference("Users");
+
+        dbr.child("Users").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                um = snapshot.getValue(User_Model.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         // Initialize the AutocompleteSupportFragment for start Location.
         AutocompleteSupportFragment startLocationFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.startLocation);
@@ -188,8 +213,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 GeoApiContext context = new GeoApiContext.Builder()
                         .apiKey("AIzaSyCLsSnRSj3Wp4ODEHNh-frX__F__ZSpmYw")
                         .build();
-                DirectionsApiRequest req = DirectionsApi.getDirections(context, MainActivity.lati + "," +MainActivity.longi, destination.latitude+","+destination.longitude);
+
                 try {
+                    DirectionsApiRequest req = DirectionsApi.getDirections(context, MainActivity.lati + "," +MainActivity.longi, destination.latitude+","+destination.longitude).units(Unit.METRIC);
+
+                    if(um!=null)
+                    {
+
+                        req = DirectionsApi.getDirections(context, MainActivity.lati + "," +MainActivity.longi, destination.latitude+","+destination.longitude).units(um.getMeasurementUnit());
+
+                    }
+
                     DirectionsResult res = req.await();
 
                     //Loop through legs and steps to get encoded polylines of each step
